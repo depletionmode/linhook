@@ -1,4 +1,3 @@
-
 #include "linhook.h"
 
 #include <stdint.h>

@@ -1,4 +1,3 @@
-
 #define MEM_POOL_SIZE 4096
 
 #define LINHOOK_INIT __attribute__((constructor)) void __linhook_init
