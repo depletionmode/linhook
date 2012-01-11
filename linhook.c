@@ -67,12 +67,18 @@ int __linhook_hook_addr(void *addr, void *n__fptr, void **o__fptr)
     /* set up trampoline */
     __linhook_memcpy(trampoline, addr, 5);
     __linhook_memcpy(trampoline + 5, __build_jmp(addr + 5, trampoline + 5), 5);
-    __linhook_mprotect(trampoline - ((uint64_t)*o__fptr % PAGE_SIZE), PAGE_SIZE, PROT_READ|PROT_EXEC);
+    __linhook_mprotect(trampoline - ((uint64_t)*o__fptr % PAGE_SIZE),
+                       PAGE_SIZE,
+                       PROT_READ|PROT_EXEC);
 
     /* set up jmp to new fcn */
-    __linhook_mprotect(addr - ((uint64_t)addr % PAGE_SIZE), PAGE_SIZE, PROT_READ|PROT_WRITE);
+    __linhook_mprotect(addr - ((uint64_t)addr % PAGE_SIZE),
+                       PAGE_SIZE,
+                       PROT_READ|PROT_WRITE);
     __linhook_memcpy(addr, __build_jmp(n__fptr, addr), 5);
-    __linhook_mprotect(addr - ((uint64_t)addr % PAGE_SIZE), PAGE_SIZE, PROT_READ|PROT_EXEC);
+    __linhook_mprotect(addr - ((uint64_t)addr % PAGE_SIZE),
+                       PAGE_SIZE,
+                       PROT_READ|PROT_EXEC);
 
     /* set up original fcn ptr */
     *o__fptr = trampoline;
