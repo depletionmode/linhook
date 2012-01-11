@@ -1,0 +1,10 @@
+---------------------------------------------------
+linhook - simple hooking framework for linux x86_64
+      by David Kaplan <david@2of1.org>, 2012
+---------------------------------------------------
+
+Compile framework: gcc -fPIC linhook.c -o linhook.so
+
+Compile injectee code: gcc -fPIC -static code.c -o code.so
+
+Execute against target: LD_PRELOAD="./code.so" ./target
